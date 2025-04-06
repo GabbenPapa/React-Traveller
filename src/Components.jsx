@@ -91,10 +91,31 @@ function Item({ item, onDeleteItem, onToggle }) {
   );
 }
 
-export function Stats() {
+export function Stats({ items }) {
+  if (!items.length) {
+    return (
+      <div className="stats">
+        <em>Your list is empty</em>
+      </div>
+    );
+  }
+
+  const numOfItems = items.length;
+  const numOfPackedItems = items.filter((item) => item.packed).length;
+  const percentage = Math.round((numOfPackedItems / numOfItems) * 100) || 0;
+
+  // function handleitem(item) {
+  //   setItems((items) => [...items, item]);
+  // }
+
   return (
     <footer className="stats">
-      <em>You have x items on your list, and you already packed x items</em>
+      <em>
+        {percentage === 100
+          ? "You got everything!"
+          : `You have ${numOfItems} items on your list, and you already packed
+        ${numOfPackedItems} (${percentage}%)`}
+      </em>
     </footer>
   );
 }
