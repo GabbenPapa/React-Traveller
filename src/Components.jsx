@@ -5,7 +5,7 @@ export function Logo() {
   return <h1>Far Away</h1>;
 }
 
-export function Form({ handleAddItems }) {
+export function Form({ onAddItems }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
 
@@ -21,12 +21,10 @@ export function Form({ handleAddItems }) {
       packed: false,
     };
 
-    handleAddItems(newItem);
+    onAddItems(newItem);
 
     setDescription("");
     setQuantity(1);
-
-    initialItems.push(newItem);
   }
 
   return (
@@ -55,25 +53,30 @@ export function Form({ handleAddItems }) {
   );
 }
 
-export function PackingList({ items }) {
+export function PackingList({ items, onDeleteItem }) {
   return (
     <div className="list">
       <ul>
         {items.map((item) => (
-          <Item item={item} key={item.id} />
+          <Item item={item} onDeleteItem={onDeleteItem} key={item.id} />
         ))}
       </ul>
     </div>
   );
 }
 
-function Item({ item }) {
+function Item({ item, onDeleteItem }) {
+  function handleDelete() {
+    onDeleteItem(item.id);
+  }
   return (
     <li>
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.quantity} {item.description}
       </span>
-      <button className="remove">❌</button>
+      <button className="remove" onClick={() => handleDelete(item.id)}>
+        ❌
+      </button>
     </li>
   );
 }
