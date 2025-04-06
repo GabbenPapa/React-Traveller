@@ -12,6 +12,10 @@ export default function App() {
     setItems((items) => items.filter((item) => item.id !== id));
   }
 
+  function deleteAll() {
+    setItems([]);
+  }
+
   function handleToggle(id) {
     setItems((items) =>
       items.map((item) =>
@@ -27,6 +31,7 @@ export default function App() {
       <PackingList
         items={items}
         onDeleteItem={handleDeleteItem}
+        onDeleteAll={deleteAll}
         onToggle={handleToggle}
       />
       <Stats items={items} />
