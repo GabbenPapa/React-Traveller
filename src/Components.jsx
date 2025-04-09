@@ -123,10 +123,6 @@ export function Stats({ items }) {
   const numOfPackedItems = items.filter((item) => item.packed).length;
   const percentage = Math.round((numOfPackedItems / numOfItems) * 100) || 0;
 
-  // function handleitem(item) {
-  //   setItems((items) => [...items, item]);
-  // }
-
   return (
     <footer className="stats">
       <em>
